@@ -3,6 +3,7 @@ name = "clash-script"
 main = "src/index.ts"
 compatibility_date = "2024-11-06"
 compatibility_flags = ["nodejs_compat"]
+assets = { directory = "./public/", binding = "ASSETS", html_handling = "auto-trailing-slash" }
 
 # Workers Logs
 # Docs: https://developers.cloudflare.com/workers/observability/logs/workers-logs/

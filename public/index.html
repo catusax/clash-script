@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+		<script type="importmap">
+			{
+				"imports": {
+					"@material/web/": "https://esm.run/@material/web/"
+				}
+			}
+		</script>
+		<script type="module">
+			import '@material/web/all.js';
+			import { styles as typescaleStyles } from '@material/web/typography/md-typescale-styles.js';
+
+			document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
+		</script>
+		<style>
+			body {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				padding-top: 10vh;
+				margin: 0;
+				font-family: 'Roboto', sans-serif;
+			}
+
+			h1 {
+				text-align: center;
+				width: 100%;
+			}
+
+			.md-filled-card {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				width: fit-content;
+				padding: 16px;
+				box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			}
+
+			form {
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+				gap: 16px;
+				width: 100%;
+				max-width: 90%;
+			}
+
+			.result_url {
+				margin-top: 3em;
+				width: 100%;
+				max-width: 90%;
+			}
+
+			#clash_url,
+			.md-filled-select,
+			.md-outlined-button {
+				width: 100%;
+			}
+
+			.md-outlined-button {
+				min-width: 100px;
+			}
+
+			@media (max-width: 600px) {
+				form {
+					width: 100%;
+				}
+				.result_url {
+					width: 100%;
+				}
+			}
+		</style>
+
+		<script>
+			function encodeString(inputString) {
+				return encodeURIComponent(inputString);
+			}
+		</script>
+
+		<script>
+			function call() {
+				let form = document.getElementById('my-form');
+				let url = form.querySelector('#clash_url').value;
+				let rule = form.querySelector('#clash_rule').value;
+
+				let url_base = encodeString(url);
+
+				let baseurl = `${window.location.protocol}//${window.location.host}`;
+				let output = `${baseurl}/convert?url=${url_base}&rule=${rule}`;
+
+				let output_elem = document.getElementById('output_url');
+
+				output_elem.value = output;
+				output_elem.style.display = 'inherit';
+				navigator.clipboard.writeText(output).then(() => {
+					document.getElementById('clipboard_text').style.display = 'inherit';
+					setTimeout(() => {
+						document.getElementById('clipboard_text').style.display = 'none';
+					}, 5000);
+				});
+			}
+		</script>
+	</head>
+	<body>
+		<h1 class="md-typescale-display-medium">Clash Script</h1>
+		<md-filled-card>
+			<form id="my-form">
+				<p class="md-typescale-body-medium">Input you clash subscription url and get a ready to use rule based config</p>
+				<md-outlined-text-field id="clash_url" label="Sub url" value=""></md-outlined-text-field>
+				<md-filled-select label="rule set" id="clash_rule" style="width: 100%">
+					<md-select-option selected value="default">
+						<div slot="headline">Default (recommended)</div>
+					</md-select-option>
+				</md-filled-select>
+				<md-outlined-button type="button" onclick="call();">Get-Url</md-outlined-button>
+			</form>
+
+			<div id="clipboard_text" style="display: none">
+				<p>copied to clipboard ✅</p>
+			</div>
+
+			<div class="result">
+				<md-outlined-text-field
+					class="result_url"
+					style="width: 100%; display: none"
+					id="output_url"
+					label="Result"
+					value=""
+					type="textarea"
+					readOnly="true"
+					rows="5"
+				></md-outlined-text-field>
+			</div>
+		</md-filled-card>
+	</body>
+</html>
