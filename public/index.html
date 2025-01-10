@@ -24,8 +24,12 @@
 				align-items: center;
 				justify-content: center;
 				padding-top: 10vh;
-				margin: 0;
 				font-family: 'Roboto', sans-serif;
+				background-image: url('https://dailybing.com/api/v1');
+				background-position: center center;
+				background-repeat: no-repeat;
+				background-attachment: fixed;
+				background-size: cover;
 			}
 
 			h1 {
@@ -33,13 +37,26 @@
 				width: 100%;
 			}
 
-			.md-filled-card {
-				display: flex;
-				flex-direction: column;
+			md-filled-card {
 				align-items: center;
 				width: fit-content;
-				padding: 16px;
+				padding: 40px;
 				box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+				border-radius: 8px;
+				/* background-color: #fefefe; */
+				backdrop-filter: blur(20px) brightness(98%) saturate(100%);
+				background-color: rgba(255, 255, 255, 0.6);
+			}
+
+			:root {
+				/* override select colors */
+				--md-sys-color-surface-container-highest: rgba(255, 255, 255, 0);
+				--md-sys-color-surface-container: rgba(255, 255, 255, 0);
+				--md-sys-color-secondary-container: rgba(255, 255, 255, 0.3);
+			}
+
+			md-select-option {
+				backdrop-filter: blur(20px);
 			}
 
 			form {
@@ -47,32 +64,23 @@
 				flex-direction: column;
 				align-items: flex-start;
 				gap: 16px;
-				width: 100%;
-				max-width: 90%;
 			}
 
 			.result_url {
-				margin-top: 3em;
-				width: 100%;
-				max-width: 90%;
+				margin-top: 1em;
 			}
 
 			#clash_url,
+			.result_url,
 			.md-filled-select,
 			.md-outlined-button {
 				width: 100%;
 			}
 
-			.md-outlined-button {
-				min-width: 100px;
-			}
-
 			@media (max-width: 600px) {
-				form {
-					width: 100%;
-				}
-				.result_url {
-					width: 100%;
+				md-filled-card {
+					padding-left: 20px;
+					padding-right: 20px;
 				}
 			}
 		</style>
@@ -95,14 +103,15 @@
 				let output = `${baseurl}/convert?url=${url_base}&rule=${rule}`;
 
 				let output_elem = document.getElementById('output_url');
+				let result_div = document.querySelector('.result');
 
 				output_elem.value = output;
-				output_elem.style.display = 'inherit';
+				result_div.style.display = 'inherit';
 				navigator.clipboard.writeText(output).then(() => {
-					document.getElementById('clipboard_text').style.display = 'inherit';
+					document.getElementById('clipboard_text').style.visibility = 'visible';
 					setTimeout(() => {
-						document.getElementById('clipboard_text').style.display = 'none';
-					}, 5000);
+						document.getElementById('clipboard_text').style.visibility = 'hidden';
+					}, 600);
 				});
 			}
 		</script>
@@ -121,14 +130,12 @@
 				<md-outlined-button type="button" onclick="call();">Get-Url</md-outlined-button>
 			</form>
 
-			<div id="clipboard_text" style="display: none">
-				<p>copied to clipboard ✅</p>
-			</div>
-
-			<div class="result">
+			<div class="result" style="display: none">
+				<div id="clipboard_text" style="visibility: hidden">
+					<p>copied to clipboard ✅</p>
+				</div>
 				<md-outlined-text-field
 					class="result_url"
-					style="width: 100%; display: none"
 					id="output_url"
 					label="Result"
 					value=""
