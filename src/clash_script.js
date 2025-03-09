@@ -11,13 +11,14 @@ function main(config, profileName) {
   ];
   // 国外DNS服务器
   const foreignNameservers = [
-    "https://1.1.1.1/dns-query#PROXY", // Cloudflare(主)
-    "https://1.0.0.1/dns-query#PROXY", // Cloudflare(备)
+    "https://1.1.1.1/dns-query#节点选择", // Cloudflare(主)
+    "https://1.0.0.1/dns-query#节点选择", // Cloudflare(备)
   ];
   // DNS配置
   const dnsConfig = {
     "enable": true,
     "ipv6": true,
+    "enhanced-mode": "fake-ip",
     "use-system-hosts": true,
     "cache-algorithm": "arc",
     "default-nameserver": ["223.5.5.5", "119.29.29.29", "1.1.1.1", "8.8.8.8"],
