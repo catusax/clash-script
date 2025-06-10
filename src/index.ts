@@ -43,6 +43,17 @@ export default {
 
 		let clash_json = YAML.parse(clash_conf)
 
+		delete clash_json["proxies"]
+
+		clash_json["proxy-providers"] = {
+			"myprovider": {
+				type: "http",
+				url: remote_url,
+				interval: 86400,
+				proxy: "DIRECT",
+			}
+		}
+
 		let clash_conf_new
 		switch (rule) {
 			case "default":

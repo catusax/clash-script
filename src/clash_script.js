@@ -22,8 +22,8 @@ function main(config, profileName) {
     "use-system-hosts": true,
     "cache-algorithm": "arc",
     "default-nameserver": ["223.5.5.5", "119.29.29.29", "1.1.1.1", "8.8.8.8"],
-    "nameserver": domesticNameservers,
-    "fallback": foreignNameservers,
+    "nameserver": [...domesticNameservers],
+    "fallback": [...foreignNameservers],
     "proxy-server-nameserver": [...domesticNameservers, ...foreignNameservers],
     "nameserver-policy": {
       "geosite:private,cn,geolocation-cn": domesticNameservers,
