@@ -197,9 +197,45 @@ function main(config, profileName) {
       ...groupBaseOption,
       "name": "节点选择",
       "type": "select",
-      "proxies": ["延迟选优", "故障转移"],
+      "proxies": ["延迟选优", "故障转移", "香港节点", "日本节点", "新加坡节点", "美国节点"],
       "include-all": true,
       "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/adjust.svg"
+    },
+    {
+      ...groupBaseOption,
+      "name": "香港节点",
+      "type": "url-test",
+      "tolerance": 100,
+      "use": ["myprovider"],
+      "filter": "(?i)港|hk|hongkong|hong kong",
+      "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/globe.svg"
+    },
+    {
+      ...groupBaseOption,
+      "name": "日本节点",
+      "type": "url-test",
+      "tolerance": 100,
+      "use": ["myprovider"],
+      "filter": "(?i)日本|jp|japan",
+      "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/flags/jp.svg"
+    },
+    {
+      ...groupBaseOption,
+      "name": "新加坡节点",
+      "type": "url-test",
+      "tolerance": 100,
+      "use": ["myprovider"],
+      "filter": "(?i)新加坡|sg|singapore",
+      "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/flags/sg.svg"
+    },
+    {
+      ...groupBaseOption,
+      "name": "美国节点",
+      "type": "url-test",
+      "tolerance": 100,
+      "use": ["myprovider"],
+      "filter": "(?i)美国|us|united states",
+      "icon": "https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/flags/us.svg"
     },
     {
       ...groupBaseOption,
